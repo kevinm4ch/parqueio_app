@@ -18,10 +18,11 @@ class PatioController extends Controller
         try{
 
             $response = $client->request('GET', 'patio', );
-
+            
             $data = json_decode($response->getBody(), true);
 
-            return view('patio', ['patioData' => $data]);
+
+            return view('dashboard', ['patioData' => $data, 'header' => 'Pátios']);
 
         }catch (\Exception $e){
             return view('api_error', ['error' => $e->getMessage()]);
@@ -29,6 +30,7 @@ class PatioController extends Controller
     }
 
     public function getPatio($patio_id){
+
 
         $client = new Client(['base_uri' => $this->apiUrl]);
 
