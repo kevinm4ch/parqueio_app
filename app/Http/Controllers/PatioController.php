@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
+use PhpParser\Node\Stmt\TryCatch;
 
 class PatioController extends Controller
 {
@@ -85,6 +86,43 @@ class PatioController extends Controller
             return view('api_error', ['error' => $e->getMessage()]);
         }
 
+
+    }
+
+    public function getTicket(Request $request){
+
+        $client = new Client(['base_uri' => $this->apiUrl]);
+
+        if(isset($request->ticket)){
+            try {
+
+                $response = $client->request('GET', "ticket/". $request->ticket);
+
+                $ticket = json_decode($response->getBody(), true);
+                
+                return view('pagar_ticket', ['ticket' => $ticket]);
+
+            } catch (\Exception $e) {
+                return view('pagar_ticket', ['msg' => ['label' => 'Ticket não encontrado', 'text' => "Não foi possível encontrar o ticket informado"]]);
+            }
+        }
+
+        if(isset($request->valor_total)){
+
+            try {
+                $body = json_encode(["valor_pago" => intval($request->valor_total)]);
+                
+                $response = $client->request('PUT', ("ticket/pay/" . $request->codigo), ['body' => $body]);
+                
+                return view('pagar_ticket', ['msg' => ['label' => 'Ticket Pago com Sucesso', 'text' => "O ticket foi pago com sucesso"]]);
+
+            } catch (\Exception $e) {
+
+                return view('pagar_ticket', ['msg' => ['label' => 'Ticket não encontrado', 'text' => "Não foi possível encontrar o ticket informado"]]);
+            }
+        }
+
+        return view('pagar_ticket');
 
     }
 }

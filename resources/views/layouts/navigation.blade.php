@@ -15,7 +15,7 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         Pátios
                     </x-nav-link>
-                    <x-nav-link :href="route('welcome')" :active="request()->routeIs('welcome')">
+                    <x-nav-link :href="route('ticket')" :active="request()->routeIs('ticket')">
                         Pagar Ticket
                     </x-nav-link>
                 </div>

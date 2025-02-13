@@ -23,6 +23,9 @@ Route::get('/patio/{patio_id}', [PatioController::class, 'getPatio'])->middlewar
 
 Route::post('/patio/{patio_id}', [PatioController::class, 'gerarTicket'])->middleware(['auth', 'verified'])->name('gerar');
 
+Route::get('/pay', [PatioController::class, 'getTicket'])->middleware(['auth', 'verified'])->name('ticket');
+
+Route::post('/pay', [PatioController::class, 'getTicket'])->middleware(['auth', 'verified'])->name('pay');
 
 
 require __DIR__.'/auth.php';
