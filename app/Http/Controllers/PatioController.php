@@ -99,6 +99,10 @@ class PatioController extends Controller
                 $response = $client->request('GET', "ticket/". $request->ticket);
 
                 $ticket = json_decode($response->getBody(), true);
+
+                if(!$ticket['ativo']){
+                    return view('pagar_ticket', ['msg' => ['label' => 'Ticket não encontrado', 'text' => "Não foi possível encontrar o ticket informado"]]);
+                }
                 
                 return view('pagar_ticket', ['ticket' => $ticket]);
 

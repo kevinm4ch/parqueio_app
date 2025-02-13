@@ -2,12 +2,12 @@
 
 function calcularTarifa($horas)
 {
-    if ($horas > 5) {
+    if ($horas >= 5) {
         //Valor da diária R$ 50,00
         return (intdiv($horas, 24) || 1) * 50;
     }
 
-    return $horas * 10;
+    return ($horas + 1) * 10;
 }
 
 $input_style = "border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm";
